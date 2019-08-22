@@ -18,16 +18,6 @@
 </p>
 
 
-
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
-
-* [About](#about-the-project)
-* [Usage](#usage)
-* [Contributing](#contributing)
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About apk2theme
 
