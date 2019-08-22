@@ -21,7 +21,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About apk2theme
 
-![apk2theme preview](https://i.imgur.com/rzRaBJA.png)
+![apk2theme preview](https://i.imgur.com/j7q9iO3.png)
 
 
 apk2theme was created to help aid in converting Android Icon Packs over to iPhone without having to spend hours sifting through image files, finding the right ones, and renaming them to match different naming conventions. With apk2theme, you can simply drag and drop an APK file onto the compiled binary and you'll have a fully-working (iOS 11+) compatible iPhone theme.
