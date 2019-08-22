@@ -21,8 +21,10 @@ namespace apk2theme
         public static int ConvertedThemes = 0;
 
         // Working directories used in the conversion process.
-        public static string WorkingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ApkToTheme");
+        public static string WorkingDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "apk2theme");
         public static string AndroidIcons = Path.Combine(WorkingDirectory, "AndroidIcons");
         public static string iPhoneIcons = Path.Combine(WorkingDirectory, "IconBundles");
+
+        public static string OutputDirectory = string.Empty;
     }
 }

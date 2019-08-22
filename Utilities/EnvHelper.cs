@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace apk2theme
 {
@@ -43,15 +44,22 @@ namespace apk2theme
         }
         public static void CleanWorkEnvironment(string theme_name)
         {
-            ColorPrint.WriteLine("\tREMOVING: {0}..", Globals.AndroidIcons);
-            Directory.Delete(Globals.AndroidIcons, true);
-            if (!Directory.Exists(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme")))
+            try
             {
-                ColorPrint.WriteLine("\tCREATING: {0}..", Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"));
-                Directory.CreateDirectory(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"));
+                ColorPrint.WriteLine("\tREMOVING: {0}..", Globals.AndroidIcons);
+                Directory.Delete(Globals.AndroidIcons, true);
+                if (!Directory.Exists(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme")))
+                {
+                    ColorPrint.WriteLine("\tCREATING: {0}..", Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"));
+                    Directory.CreateDirectory(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"));
+                }
+                ColorPrint.WriteLine("\tMOVING: {0}..", Path.Combine(Globals.WorkingDirectory, theme_name + ".theme/IconBundles"));
+                Directory.Move(Globals.iPhoneIcons, Path.Combine(Globals.WorkingDirectory, theme_name + ".theme/IconBundles"));
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
             }
-            ColorPrint.WriteLine("\tMOVING: {0}..", Path.Combine(Globals.WorkingDirectory, theme_name + ".theme/IconBundles"));
-            Directory.Move(Globals.iPhoneIcons, Path.Combine(Globals.WorkingDirectory, theme_name + ".theme/IconBundles"));
         }
     }
 }

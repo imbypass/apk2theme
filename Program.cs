@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace apk2theme
 {
@@ -18,7 +19,7 @@ namespace apk2theme
             if (!GetFilterList(icon_list)) return;
 
             // Check to make sure we provided at least one APK file for the converter to use.
-            RunArgsCheck(args);
+            RunArgsCheck(ref args);
 
             // A simple for loop to handle any/all files thrown at the converter.
             foreach (string apk in args)
@@ -29,11 +30,11 @@ namespace apk2theme
                 // Get a basic name of the APK file (without any .apk or .zip extensions)
                 string apk_name = new FileInfo(apk).Name.Replace(".apk", "").Replace(".zip", "");
 
-                // Check to see if the given file is a valid APK. We do this by attempting to extract one icon; if we fail, it can't be a valid icon pack.
-                if (!CheckPackage(apk, apk_info)) continue;
-
                 // Set up our temporary work environment. This basically just clears and creates a directory in APPDATA for us to move files around in.
                 EnvHelper.SetupWorkEnvironment();
+
+                // Check to see if the given file is a valid APK. We do this by attempting to extract one icon; if we fail, it can't be a valid icon pack.
+                if (!CheckPackage(apk, apk_info)) continue;
 
                 // Extract apk's icon folder. These will be extracted to our working directory that we created earlier.
                 if (!ExtractIcons(apk)) continue;
@@ -136,23 +137,30 @@ namespace apk2theme
                 }
                 catch { }
                 ColorPrint.WriteLine("\tMOVING: {0}..", Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"));
-                Directory.Move(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"), Path.Combine(apk_folder, theme_name + ".theme"));
+                Directory.Move(Path.Combine(Globals.WorkingDirectory, theme_name + ".theme"), Path.Combine(String.IsNullOrEmpty(Globals.OutputDirectory) ? apk_folder : Globals.OutputDirectory, theme_name + ".theme"));
                 ColorPrint.WriteLine("\nSuccessfully cleaned up\n", ConsoleColor.Green);
                 return true;
-            } catch
+            } catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
                 ColorPrint.WriteLine("\nFailed cleaning up\n", ConsoleColor.Red);
                 return false;
             }
         }
 
 
-        static void RunArgsCheck(string[] args)
+        static void RunArgsCheck(ref string[] args)
         {
             if (args.Length <= 0)
             {
                 ColorPrint.WriteLine("\nERROR: No APK file was provided! Exiting...", ConsoleColor.Yellow);
                 Environment.Exit(0);
+            }
+            if (args[0] == "--output")
+            {
+                Globals.OutputDirectory = args[1];
+                args = args.Skip(2).ToArray();
             }
         }
         static void PrintBannerMessage()
