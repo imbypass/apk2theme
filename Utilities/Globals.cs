@@ -10,7 +10,7 @@ namespace apk2theme
     public static class Globals
     {
         // The current version of our converter.
-        public const double CurrentVersion = 1.04;
+        public const double CurrentVersion = 1.05;
 
         // The location of the online icon database.
         public const string ConversionListUrl = "https://imbypass.pw/icon_conversion_list.txt";
