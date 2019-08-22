@@ -71,4 +71,4 @@ Contributions are what make the open source community such an amazing place to b
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[product-screenshot]: https://ton.twitter.com/1.1/ton/data/dm/1164600835571101700/1164600738972147712/K8jqfyef.png:large
+[product-screenshot]: https://ton.twitter.com/1.1/ton/data/dm/1164600835571101700/1164600738972147712/K8jqfyef.png
