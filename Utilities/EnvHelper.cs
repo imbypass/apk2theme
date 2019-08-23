@@ -57,8 +57,7 @@ namespace apk2theme
                 Directory.Move(Globals.iPhoneIcons, Path.Combine(Globals.WorkingDirectory, theme_name + ".theme/IconBundles"));
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.ReadKey();
+
             }
         }
     }

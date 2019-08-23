@@ -142,8 +142,6 @@ namespace apk2theme
                 return true;
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.ReadKey();
                 ColorPrint.WriteLine("\nFailed cleaning up\n", ConsoleColor.Red);
                 return false;
             }
@@ -157,11 +155,24 @@ namespace apk2theme
                 ColorPrint.WriteLine("\nERROR: No APK file was provided! Exiting...", ConsoleColor.Yellow);
                 Environment.Exit(0);
             }
-            if (args[0] == "--output")
-            {
-                Globals.OutputDirectory = args[1];
-                args = args.Skip(2).ToArray();
-            }
+
+            int param_index = -1;
+            for (int i = 0; i < args.Length; i++)
+                if (args[i].Contains("--output"))
+                    param_index = i;
+
+            Globals.OutputDirectory = args[param_index + 1];
+
+            List<string> arg_list = args.ToList();
+            arg_list.RemoveAt(param_index);
+            arg_list.RemoveAt(param_index); // Once we remove the first one, the second one takes the old index. So remove the entry twice. :)
+            args = arg_list.ToArray();
+
+            //if (args[0] == "--output")
+            //{
+            //    Globals.OutputDirectory = args[1];
+            //    args = args.Skip(2).ToArray();
+            //}
         }
         static void PrintBannerMessage()
         {
